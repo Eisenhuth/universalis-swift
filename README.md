@@ -9,7 +9,7 @@ a simple swift client to easily work with the universalis.app api
 ## Swift Package Manager
 
 1. Xcode -> File -> Add Package Dependency
-2. paste this repository url:`https://github.com/Eisenhuth/universalis-swift.git`
+2. paste this repository url: `https://github.com/Eisenhuth/universalis-swift.git`
 3. Add Package
 
 ## Swift Package
@@ -31,23 +31,43 @@ let dataCenters = await universalis.getDataCenters()
 let worlds = await universalis.getWorlds()
 let taxRates = await universalis.getTaxRates(world: "Phoenix")
 
-let single = await universalis.getCurrentData(worldDcRegion: "Europe", itemId: 39727)
-let multi = await universalis.getCurrentData(worldDcRegion: "Europe", itemIds: [2, 3, 4, 5])
+let listings = 5
+let itemIds = [2, 3, 4, 5]
+let worldDcRegion = "Europe"
 
-let listings = 50
+let single = await universalis.getCurrentData(worldDcRegion: worldDcRegion, itemId: 5)
+print("average price: \(single?.averagePrice.rounded() ?? 0) gil")
+
+let multi = await universalis.getCurrentData(worldDcRegion: worldDcRegion, itemIds: itemIds)
+multi?.items?.values.forEach({
+    print("\($0.itemID) - listings: \($0.listingsCount)")
+})
+```
+
+
+want to use your own queries? use URLQueryItems!
+```swift
 let queryItems = [
     URLQueryItem(name: "listings", value: "\(listings)"),
-    URLQueryItem(name: "hq", value: "true")
+    URLQueryItem(name: "noGst", value: "true")
 ]
 let singleWithQueries = await universalis.getCurrentData(
-    worldDcRegion: "Europe",
-    itemId: 39727,
+    worldDcRegion: worldDcRegion,
+    itemId: 5,
     queryItems: queryItems
 )
 
 let multiWithQueries = await universalis.getCurrentData(
-    worldDcRegion: "Europe",
-    itemIds: [2, 3, 4, 5],
+    worldDcRegion: worldDcRegion,
+    itemIds: itemIds,
     queryItems: queryItems
 )
+
+singleWithQueries?.listings?.forEach({ listing in
+    print("\(listing.pricePerUnit) - \(listing.quantity) - \(listing.retainerCityName) - \(listing.worldName ?? "")")
+})
+
+multiWithQueries?.items?.first?.value.listings?.forEach({ listing in
+    print("\(listing.pricePerUnit) - \(listing.quantity) - \(listing.retainerCityName) - \(listing.worldName ?? "")")
+})
 ```

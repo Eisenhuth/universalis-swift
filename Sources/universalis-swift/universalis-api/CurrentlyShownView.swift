@@ -23,11 +23,11 @@ public struct CurrentlyShownView: Codable, Identifiable {
     public let maxPrice: Int
     public let maxPriceNQ: Int
     public let maxPriceHQ: Int
-    //TODO: //public var stackSizeHistogram: [String : Int]?
-    //TODO: //public var stackSizeHistogramNQ: [String : Int]?
-    //TODO: //public var stackSizeHistogramHQ: [String : Int]?
+    public var stackSizeHistogram: [String : Int]?
+    public var stackSizeHistogramNQ: [String : Int]?
+    public var stackSizeHistogramHQ: [String : Int]?
     public let worldName: String?
-    //TODO: //var worldUploadTimes: [String : Int]?
+    public let worldUploadTimes: [String : Int]?
     public let listingsCount: Int
     public let recentHistoryCount: Int
     public let unitsForSale: Int
@@ -41,15 +41,10 @@ public extension CurrentlyShownView{
     var cheapestNQWorld: String? { listings?.first { $0.hq == false }?.worldName }
     var minPricePreferringHQ: Int? { minPriceHQ != 0 ? minPriceHQ : minPriceNQ }
     
-    //var stackSizeDict: [Int : Int] { convertDict(stackSizeHistogram) }
-    //var stackSizeDictHQ: [Int : Int] { convertDict(stackSizeHistogramHQ) }
-    //var stackSizeDictNQ: [Int : Int] { convertDict(stackSizeHistogramNQ) }
-    
-    func convertDict(_ inputDict: [String : Int]?) -> [Int : Int]{
-        Dictionary(uniqueKeysWithValues: inputDict?.compactMap { key, value in
-            Int(key).map { ($0, value) }
-        } ?? [])
-    }
+    var stackSizeDict: [Int : Int] { convertDict(stackSizeHistogram) }
+    var stackSizeDictHQ: [Int : Int] { convertDict(stackSizeHistogramHQ) }
+    var stackSizeDictNQ: [Int : Int] { convertDict(stackSizeHistogramNQ) }
+    var worldUploadDict: [Int : Int] { convertDict(worldUploadTimes) }
     
     var parsedDate: Date{ Date(timeIntervalSince1970: TimeInterval(lastUploadTime)) }
 }

@@ -1,7 +1,5 @@
 import Foundation
 
-@available(macOS 12.0, *)
-@available(iOS 13.0.0, *)
 public func loadData<T: Decodable>(_ url: URL) async -> T? {
     do{
         let (data, _) = try await URLSession.shared.data(from: url)
