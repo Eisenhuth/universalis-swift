@@ -22,7 +22,6 @@ public extension MinimizedSaleView {
         
         return TimeInterval(timestamp) > thirtyDaysAgo
     }
-    @available(macOS 12.0, *)
     var dateString: String {
         Date(timeIntervalSince1970: TimeInterval(timestamp)).formatted(date: .numeric, time: .shortened)
     }

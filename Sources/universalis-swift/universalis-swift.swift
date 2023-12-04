@@ -3,8 +3,6 @@
 
 import Foundation
 
-@available(macOS 12.0, *)
-@available(iOS 15.0.0, *)
 public class UniversalisClient{
     
     public init(){
@@ -12,8 +10,6 @@ public class UniversalisClient{
     }
 }
 
-@available(macOS 12.0, *)
-@available(iOS 15.0.0, *)
 public extension UniversalisClient{
     
     /// get all data centers supported by the API
