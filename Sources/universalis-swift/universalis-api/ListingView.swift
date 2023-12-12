@@ -46,4 +46,7 @@ public extension ListingView{
             return ""
         }
     }
+    
+    var taxedTotal: Int { total + tax }
+    var taxedUnitPrice: Int { taxedTotal / quantity }
 }
