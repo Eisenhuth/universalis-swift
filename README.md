@@ -32,6 +32,7 @@ let worlds = await universalis.getWorlds()
 let taxRates = await universalis.getTaxRates(world: "Phoenix")
 
 let listings = 5
+let monthInSeconds = 86400 * 30
 let itemIds = [2, 3, 4, 5]
 let worldDcRegion = "Europe"
 
@@ -49,7 +50,7 @@ want to use your own queries? use URLQueryItems!
 ```swift
 let queryItems = [
     URLQueryItem(name: "listings", value: "\(listings)"),
-    URLQueryItem(name: "noGst", value: "true")
+    URLQueryItem(name: "entriesWithin", value: "\(monthInSeconds)")
 ]
 let singleWithQueries = await universalis.getCurrentData(
     worldDcRegion: worldDcRegion,

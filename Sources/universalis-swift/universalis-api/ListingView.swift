@@ -19,6 +19,7 @@ public struct ListingView: Codable, Identifiable {
     public let retainerName: String?
     public let sellerID: String?
     public let total: Int
+    public let tax: Int
 }
 
 public extension ListingView{
@@ -45,4 +46,7 @@ public extension ListingView{
             return ""
         }
     }
+    
+    var taxedTotal: Int { total + tax }
+    var taxedUnitPrice: Int { taxedTotal / quantity }
 }

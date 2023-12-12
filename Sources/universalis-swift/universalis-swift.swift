@@ -56,7 +56,6 @@ public extension UniversalisClient{
     ///   - queryItems: the following queries are supported:
     ///   - listings (query): the number of listings to return per item, default is all listings
     ///   - entries (query): the number of recent history entries to return per item, default 5
-    ///   - noGst (query): if the result should not have Gil sales tax (GST) factored in. GST is applied to all consumer purchases in-game, and is separate from the retainer city tax that impacts what sellers receive. By default, GST is factored in. Set this parameter to true or 1 to prevent this.
     ///   - hq (query): filter for HQ listings and entries. By default, both HQ and NQ listings will be returned
     ///   - statsWithin (query): the amount of time before now to calculate stats over, in milliseconds, default 7 days
     ///   - entriesWithin (query): the amount of time before now to take entries within, in seconds, default 7 days
@@ -77,7 +76,6 @@ public extension UniversalisClient{
     ///   - queryItems: the following queries are supported:
     ///   - listings (query): the number of listings to return per item, default is all listings
     ///   - entries (query): the number of recent history entries to return per item, default 5
-    ///   - noGst (query): if the result should not have Gil sales tax (GST) factored in. GST is applied to all consumer purchases in-game, and is separate from the retainer city tax that impacts what sellers receive. By default, GST is factored in. Set this parameter to true or 1 to prevent this.
     ///   - hq (query): filter for HQ listings and entries. By default, both HQ and NQ listings will be returned
     ///   - statsWithin (query): the amount of time before now to calculate stats over, in milliseconds, default 7 days
     ///   - entriesWithin (query): the amount of time before now to take entries within, in seconds, default 7 days
