@@ -37,14 +37,14 @@ public extension UniversalisClient{
     ///   - world: the world/data center to request data for
     ///   - entries: the number of entries to return (default 50, max 200)
     /// - Returns: the least-recently updated items
-    func getLeastRecentlyUpdated(world: String, entries: Int = 50) async -> RecentlyUpdatedItemsView?{
+    func getLeastRecentlyUpdated(world: String, entries: Int = 50) async -> MostRecentlyUpdatedItemsView?{
         
         let queryItems = [
             URLQueryItem(name: "world", value: world),
             URLQueryItem(name: "entries", value: entries.description)
         ]
         let url = Endpoint.leastRecentlyUpdated(world: world, queryItems: queryItems).url!
-        let response: RecentlyUpdatedItemsView? = await loadData(url)
+        let response: MostRecentlyUpdatedItemsView? = await loadData(url)
         
         return response
     }
