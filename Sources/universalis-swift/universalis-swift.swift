@@ -12,22 +12,23 @@ public class UniversalisClient{
 
 public extension UniversalisClient{
     
+    typealias UniversalisResponse<T: Decodable> = (result: T?, statusCode: Int?, error: APIError?)
     /// get all data centers supported by the API
     /// - Returns: data centers
-    func getDataCenters() async -> [DataCenter]?{
+    func getDataCenters() async -> UniversalisResponse<[DataCenter]>{
         
         let url = Endpoint.dataCenters().url!
-        let response:[DataCenter]? = await loadData(url)
+        let response: UniversalisResponse<[DataCenter]> = await loadData(url)
         
         return response
     }
     
     /// get the IDs and names of all worlds supported by the API
     /// - Returns: worlds
-    func getWorlds() async -> [World]?{
+    func getWorlds() async -> UniversalisResponse<[World]>{
         
         let url = Endpoint.worlds().url!
-        let response:[World]? = await loadData(url)
+        let response: UniversalisResponse<[World]> = await loadData(url)
         
         return response
     }
@@ -37,14 +38,14 @@ public extension UniversalisClient{
     ///   - world: the world/data center to request data for
     ///   - entries: the number of entries to return (default 50, max 200)
     /// - Returns: the least-recently updated items
-    func getLeastRecentlyUpdated(world: String, entries: Int = 50) async -> MostRecentlyUpdatedItemsView?{
+    func getLeastRecentlyUpdated(world: String, entries: Int = 50) async -> UniversalisResponse<MostRecentlyUpdatedItemsView>{
         
         let queryItems = [
             URLQueryItem(name: "world", value: world),
             URLQueryItem(name: "entries", value: entries.description)
         ]
         let url = Endpoint.leastRecentlyUpdated(world: world, queryItems: queryItems).url!
-        let response: MostRecentlyUpdatedItemsView? = await loadData(url)
+        let response: UniversalisResponse<MostRecentlyUpdatedItemsView> = await loadData(url)
         
         return response
     }
@@ -61,13 +62,14 @@ public extension UniversalisClient{
     ///   - entriesWithin (query): the amount of time before now to take entries within, in seconds, default 7 days
     ///   - fields (query): a comma separated list of fields that should be included in the response, if ommitted will return all fields. For example if you're only interested in the listings price per unit you can set this to listings.pricePerUnit
     /// - Returns: current market board data
-    func getCurrentData(worldDcRegion: String, itemId: Int, queryItems: [URLQueryItem]? = nil) async -> CurrentlyShownView?{
+    func getCurrentData(worldDcRegion: String, itemId: Int, queryItems: [URLQueryItem]? = nil) async -> UniversalisResponse<CurrentlyShownView>{
         
         let url = Endpoint.currentData(worldDcRegion: worldDcRegion, itemId: itemId, queryItems: queryItems).url!
-        let response: CurrentlyShownView? = await loadData(url)
-        
+        let response: UniversalisResponse<CurrentlyShownView> = await loadData(url)
+
         return response
     }
+    
     
     /// get the data currently shown on the market board for the requested items
     /// - Parameters:
@@ -81,10 +83,10 @@ public extension UniversalisClient{
     ///   - entriesWithin (query): the amount of time before now to take entries within, in seconds, default 7 days
     ///   - fields (query): a comma separated list of fields that should be included in the response, if ommitted will return all fields. For example if you're only interested in the listings price per unit you can set this to listings.pricePerUnit
     /// - Returns: current market board data
-    func getCurrentData(worldDcRegion: String, itemIds: [Int], queryItems: [URLQueryItem]? = nil) async -> CurrentlyShownMultiViewV2?{
+    func getCurrentData(worldDcRegion: String, itemIds: [Int], queryItems: [URLQueryItem]? = nil) async -> UniversalisResponse<CurrentlyShownMultiViewV2>{
         
         let url = Endpoint.currentData(worldDcRegion: worldDcRegion, itemIds: itemIds, queryItems: queryItems).url!
-        let response: CurrentlyShownMultiViewV2? = await loadData(url)
+        let response: UniversalisResponse<CurrentlyShownMultiViewV2> = await loadData(url)
         
         return response
     }
@@ -100,10 +102,10 @@ public extension UniversalisClient{
     ///   - minSalePrice (query): the inclusive minimum unit sale price of entries to return
     ///   - maxSalePrice (query): the inclusive maximum unit sale price of entries to return
     /// - Returns: market history data
-    func getHistory(worldDcRegion: String, itemId: Int, queryItems: [URLQueryItem]? = nil) async -> HistoryView?{
+    func getHistory(worldDcRegion: String, itemId: Int, queryItems: [URLQueryItem]? = nil) async -> UniversalisResponse<HistoryView>{
         
         let url = Endpoint.history(worldDcRegion: worldDcRegion, itemId: itemId, queryItems: queryItems).url!
-        let response: HistoryView? = await loadData(url)
+        let response: UniversalisResponse<HistoryView> = await loadData(url)
         
         return response
     }
@@ -119,10 +121,10 @@ public extension UniversalisClient{
     ///   - minSalePrice (query): the inclusive minimum unit sale price of entries to return
     ///   - maxSalePrice (query): the inclusive maximum unit sale price of entries to return
     /// - Returns: market history data
-    func getHistory(worldDcRegion: String, itemIds: [Int], queryItems: [URLQueryItem]? = nil) async -> HistoryMultiViewV2?{
+    func getHistory(worldDcRegion: String, itemIds: [Int], queryItems: [URLQueryItem]? = nil) async -> UniversalisResponse<HistoryMultiViewV2>{
         
         let url = Endpoint.history(worldDcRegion: worldDcRegion, itemIds: itemIds, queryItems: queryItems).url!
-        let response: HistoryMultiViewV2? = await loadData(url)
+        let response: UniversalisResponse<HistoryMultiViewV2> = await loadData(url)
         
         return response
     }
@@ -131,20 +133,20 @@ public extension UniversalisClient{
     /// get the current tax rate data for the specified world. This data is provided by the Retainer Vocate in each major city.
     /// - Parameter world: the world to retrieve data for
     /// - Returns: tax rates
-    func getTaxRates(world: String) async -> TaxRatesView?{
+    func getTaxRates(world: String) async -> UniversalisResponse<TaxRatesView>{
         
         let url = Endpoint.taxRates(world: world).url!
-        let response: TaxRatesView? = await loadData(url)
+        let response: UniversalisResponse<TaxRatesView> = await loadData(url)
         
         return response
     }
     
     /// get an array of all marketable items
     /// - Returns: [Int] of all marketable items
-    func getMarketableItems() async -> [Int]? {
+    func getMarketableItems() async -> UniversalisResponse<[Int]> {
         
         let url = Endpoint.marketableItems().url!
-        let response: [Int]? = await loadData(url)
+        let response: UniversalisResponse<[Int]> = await loadData(url)
         
         return response
     }
@@ -154,44 +156,44 @@ public extension UniversalisClient{
     ///   - world: the world/data center to request data for
     ///   - entries: the number of entries to return (default 50, max 200)
     /// - Returns: the most-recently updated items
-    func getMostRecentlyUpdated(world: String, entries: Int = 50) async -> MostRecentlyUpdatedItemsView?{
+    func getMostRecentlyUpdated(world: String, entries: Int = 50) async -> UniversalisResponse<MostRecentlyUpdatedItemsView>{
         
         let queryItems = [
             URLQueryItem(name: "world", value: world),
             URLQueryItem(name: "entries", value: entries.description)
         ]
         let url = Endpoint.mostRecentlyUpdated(world: world, queryItems: queryItems).url!
-        let response: MostRecentlyUpdatedItemsView? = await loadData(url)
+        let response: UniversalisResponse<MostRecentlyUpdatedItemsView> = await loadData(url)
         
         return response
     }
     
     /// get the total upload count of the uploader applications
     /// - Returns: array with the name and upload count for each application
-    func getUploadsByApplication() async -> [SourceUploadCountView]?{
+    func getUploadsByApplication() async -> UniversalisResponse<[SourceUploadCountView]> {
         
         let url = Endpoint.uploadsByApplication().url!
-        let response: [SourceUploadCountView]? = await loadData(url)
+        let response: UniversalisResponse<[SourceUploadCountView]> = await loadData(url)
         
         return response
     }
     
     /// get the total upload count and proportion for each world
     /// - Returns: Dictionary with the server name and the  count/proportion of the uploads
-    func getUploadsByWorld() async -> [String : WorldUploadCounts]?{
+    func getUploadsByWorld() async -> UniversalisResponse<[String : WorldUploadCounts]>{
         
         let url = Endpoint.uploadsByWorld().url!
-        let response: [String : WorldUploadCounts]? = await loadData(url)
+        let response: UniversalisResponse<[String : WorldUploadCounts]> = await loadData(url)
         
         return response
     }
     
     /// get the total uploads per day over the past 30 days
     /// - Returns: an [Int] with the uploads per day
-    func getUploadsPerDay() async -> UploadCountHistoryView?{
+    func getUploadsPerDay() async -> UniversalisResponse<UploadCountHistoryView>{
         
         let url = Endpoint.uploadsPerDay().url!
-        let response: UploadCountHistoryView? = await loadData(url)
+        let response: UniversalisResponse<UploadCountHistoryView> = await loadData(url)
         
         return response
     }
