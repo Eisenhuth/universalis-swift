@@ -42,6 +42,8 @@ public extension ListingView{
             return "Crystarium"
         case 12:
             return "Old Sharlayan"
+        case 14:
+            return "Tuliyollal"
         default:
             return ""
         }

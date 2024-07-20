@@ -8,6 +8,7 @@ public struct TaxRatesView: Codable {
     public let Kugane: Int
     public let Crystarium: Int
     public let OldSharlayan: Int
+    public let Tuliyollal: Int
 
     private enum CodingKeys : String, CodingKey {
         case LimsaLominsa = "Limsa Lominsa"
@@ -17,5 +18,6 @@ public struct TaxRatesView: Codable {
         case Kugane
         case Crystarium
         case OldSharlayan = "Old Sharlayan"
+        case Tuliyollal
     }
 }
