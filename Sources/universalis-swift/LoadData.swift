@@ -1,18 +1,33 @@
 import Foundation
 
-public func loadData<T: Decodable>(_ url: URL) async -> T? {
-    do{
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let decoder = JSONDecoder()
-        let decoded = try decoder.decode(T.self, from: data)
+public enum APIError: Error {
+    case badResponse(Int)
+    case decodingError(Error)
+    case networkError(Error)
+}
+
+public func loadData<T: Decodable>(_ url: URL) async -> (result: T?, statusCode: Int?, error: APIError?) {
+    do {
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            return (nil, nil, .badResponse(-1))
+        }
         
-        return decoded
+        let statusCode = httpResponse.statusCode
+        if (200...299).contains(statusCode) {
+            let decoder = JSONDecoder()
+            do {
+                let decoded = try decoder.decode(T.self, from: data)
+                return (decoded, statusCode, nil)
+            } catch {
+                return (nil, statusCode, .decodingError(error))
+            }
+        } else {
+            return (nil, statusCode, .badResponse(statusCode))
+        }
         
     } catch {
-        #if DEBUG
-        print("error loading data\n\(url)\n\(error.localizedDescription)")
-        #endif
+        return (nil, nil, .networkError(error))
     }
-    
-    return nil
 }
+

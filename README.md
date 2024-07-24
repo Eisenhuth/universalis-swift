@@ -36,10 +36,10 @@ let monthInSeconds = 86400 * 30
 let itemIds = [2, 3, 4, 5]
 let worldDcRegion = "Europe"
 
-let single = await universalis.getCurrentData(worldDcRegion: worldDcRegion, itemId: 5)
+let single = await universalis.getCurrentData(worldDcRegion: worldDcRegion, itemId: 5).result
 print("average price: \(single?.averagePrice.rounded() ?? 0) gil")
 
-let multi = await universalis.getCurrentData(worldDcRegion: worldDcRegion, itemIds: itemIds)
+let multi = await universalis.getCurrentData(worldDcRegion: worldDcRegion, itemIds: itemIds).result
 multi?.items?.values.forEach({
     print("\($0.itemID) - listings: \($0.listingsCount)")
 })
@@ -56,13 +56,13 @@ let singleWithQueries = await universalis.getCurrentData(
     worldDcRegion: worldDcRegion,
     itemId: 5,
     queryItems: queryItems
-)
+).result
 
 let multiWithQueries = await universalis.getCurrentData(
     worldDcRegion: worldDcRegion,
     itemIds: itemIds,
     queryItems: queryItems
-)
+).result
 
 singleWithQueries?.listings?.forEach({ listing in
     print("\(listing.pricePerUnit) - \(listing.quantity) - \(listing.retainerCityName) - \(listing.worldName ?? "")")
@@ -71,4 +71,5 @@ singleWithQueries?.listings?.forEach({ listing in
 multiWithQueries?.items?.first?.value.listings?.forEach({ listing in
     print("\(listing.pricePerUnit) - \(listing.quantity) - \(listing.retainerCityName) - \(listing.worldName ?? "")")
 })
+
 ```
