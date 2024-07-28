@@ -30,6 +30,10 @@ public extension Endpoint {
         )
     }
     
+    static func aggregatedData(worldDcRegion: String, itemIds: [Int]) -> Endpoint {
+        return Endpoint(path: "/api/v2/aggregated/\(worldDcRegion)/\(itemIds.map { String($0) }.joined(separator: ","))")
+    }
+    
     static func history(worldDcRegion: String, itemId: Int, queryItems: [URLQueryItem]?) -> Endpoint {
         return Endpoint(path: "/api/v2/history/\(worldDcRegion)/\(itemId)", queryItems: queryItems)
     }
