@@ -91,6 +91,14 @@ public extension UniversalisClient{
         return response
     }
     
+    func getAggregatedData(worldDcRegion: String, itemIds: [Int]) async -> UniversalisResponse<AggregatedMarketBoardData>{
+        
+        let url = Endpoint.aggregatedData(worldDcRegion: worldDcRegion, itemIds: itemIds).url!
+        let response: UniversalisResponse<AggregatedMarketBoardData> = await loadData(url)
+        
+        return response
+    }
+    
     /// get the history data for the requested item
     /// - Parameters:
     ///   - worldDcRegion: the world, data center or region to retrieve data for
