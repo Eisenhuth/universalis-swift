@@ -7,9 +7,9 @@ public struct HistoryView: Codable, Identifiable {
     public let entries: [MinimizedSaleView]
     public let dcName: String?
     public let regionName: String?
-    public let stackSizeHistogram: [String : Int]?
-    public let stackSizeHistogramNQ: [String : Int]?
-    public let stackSizeHistogramHQ: [String : Int]?
+    public let stackSizeHistogram: [Int : Int]?
+    public let stackSizeHistogramNQ: [Int : Int]?
+    public let stackSizeHistogramHQ: [Int : Int]?
     public let regularSaleVelocity: Float
     public let nqSaleVelocity: Float
     public let hqSaleVelocity: Float
@@ -18,7 +18,4 @@ public struct HistoryView: Codable, Identifiable {
 
 public extension HistoryView {
     var id: Int { itemID }
-    var stackSizeDict: [Int : Int] { convertDict(stackSizeHistogram) }
-    var stackSizeDictHQ: [Int : Int] { convertDict(stackSizeHistogramHQ) }
-    var stackSizeDictNQ: [Int : Int] { convertDict(stackSizeHistogramNQ) }
 }

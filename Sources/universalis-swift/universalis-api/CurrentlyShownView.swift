@@ -23,11 +23,11 @@ public struct CurrentlyShownView: Codable, Identifiable {
     public let maxPrice: Int
     public let maxPriceNQ: Int
     public let maxPriceHQ: Int
-    public var stackSizeHistogram: [String : Int]?
-    public var stackSizeHistogramNQ: [String : Int]?
-    public var stackSizeHistogramHQ: [String : Int]?
+    public var stackSizeHistogram: [Int : Int]?
+    public var stackSizeHistogramNQ: [Int : Int]?
+    public var stackSizeHistogramHQ: [Int : Int]?
     public let worldName: String?
-    public let worldUploadTimes: [String : Int]?
+    public let worldUploadTimes: [Int : Int]?
     public let listingsCount: Int
     public let recentHistoryCount: Int
     public let unitsForSale: Int
@@ -40,11 +40,6 @@ public extension CurrentlyShownView{
     var cheapestHQWorld: String? { listings?.first { $0.hq == true }?.worldName }
     var cheapestNQWorld: String? { listings?.first { $0.hq == false }?.worldName }
     var minPricePreferringHQ: Int? { minPriceHQ != 0 ? minPriceHQ : minPriceNQ }
-    
-    var stackSizeDict: [Int : Int] { convertDict(stackSizeHistogram) }
-    var stackSizeDictHQ: [Int : Int] { convertDict(stackSizeHistogramHQ) }
-    var stackSizeDictNQ: [Int : Int] { convertDict(stackSizeHistogramNQ) }
-    var worldUploadDict: [Int : Int] { convertDict(worldUploadTimes) }
     
     var parsedDate: Date{ Date(timeIntervalSince1970: TimeInterval(lastUploadTime)) }
 }
