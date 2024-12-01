@@ -59,7 +59,7 @@ public extension UniversalisClient{
     ///   - entriesWithin (query): the amount of time before now to take entries within, in seconds, default 7 days
     ///   - fields (query): a comma separated list of fields that should be included in the response, if ommitted will return all fields. For example if you're only interested in the listings price per unit you can set this to listings.pricePerUnit
     /// - Returns: current market board data
-    func getCurrentData(worldDcRegion: String, itemId: Int, queryItems: [URLQueryItem]? = nil) async -> UniversalisResponse<CurrentlyShownView>{
+    func getCurrentData(worldDcRegion: String, itemId: Int, queryItems: [URLQueryItem]) async -> UniversalisResponse<CurrentlyShownView>{
         
         let url = Endpoint.currentData(worldDcRegion: worldDcRegion, itemId: itemId, queryItems: queryItems).url!
         let response: UniversalisResponse<CurrentlyShownView> = await loadData(url)
@@ -95,7 +95,7 @@ public extension UniversalisClient{
     ///   - entriesWithin (query): the amount of time before now to take entries within, in seconds, default 7 days
     ///   - fields (query): a comma separated list of fields that should be included in the response, if ommitted will return all fields. For example if you're only interested in the listings price per unit you can set this to listings.pricePerUnit
     /// - Returns: current market board data
-    func getCurrentData(worldDcRegion: String, itemIds: [Int], queryItems: [URLQueryItem]? = nil) async -> UniversalisResponse<CurrentlyShownMultiViewV2>{
+    func getCurrentData(worldDcRegion: String, itemIds: [Int], queryItems: [URLQueryItem]) async -> UniversalisResponse<CurrentlyShownMultiViewV2>{
         
         let url = Endpoint.currentData(worldDcRegion: worldDcRegion, itemIds: itemIds, queryItems: queryItems).url!
         let response: UniversalisResponse<CurrentlyShownMultiViewV2> = await loadData(url)
@@ -137,7 +137,7 @@ public extension UniversalisClient{
     ///   - minSalePrice (query): the inclusive minimum unit sale price of entries to return
     ///   - maxSalePrice (query): the inclusive maximum unit sale price of entries to return
     /// - Returns: market history data
-    func getHistory(worldDcRegion: String, itemId: Int, queryItems: [URLQueryItem]? = nil) async -> UniversalisResponse<HistoryView>{
+    func getHistory(worldDcRegion: String, itemId: Int, queryItems: [URLQueryItem]) async -> UniversalisResponse<HistoryView>{
         
         let url = Endpoint.history(worldDcRegion: worldDcRegion, itemId: itemId, queryItems: queryItems).url!
         let response: UniversalisResponse<HistoryView> = await loadData(url)
@@ -171,7 +171,7 @@ public extension UniversalisClient{
     ///   - minSalePrice (query): the inclusive minimum unit sale price of entries to return
     ///   - maxSalePrice (query): the inclusive maximum unit sale price of entries to return
     /// - Returns: market history data
-    func getHistory(worldDcRegion: String, itemIds: [Int], queryItems: [URLQueryItem]? = nil) async -> UniversalisResponse<HistoryMultiViewV2>{
+    func getHistory(worldDcRegion: String, itemIds: [Int], queryItems: [URLQueryItem]) async -> UniversalisResponse<HistoryMultiViewV2>{
         
         let url = Endpoint.history(worldDcRegion: worldDcRegion, itemIds: itemIds, queryItems: queryItems).url!
         let response: UniversalisResponse<HistoryMultiViewV2> = await loadData(url)
