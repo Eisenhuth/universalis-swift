@@ -1,6 +1,3 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
-
 import Foundation
 
 public class UniversalisClient{
@@ -71,6 +68,21 @@ public extension UniversalisClient{
     }
     
     
+    /// get the data currently shown on the market board for the requested item
+    /// - Parameters:
+    ///   - worldDcRegion: the world, data center or region to retrieve data for
+    ///   - itemId: the item to retrieve data for
+    ///   - queries: queries supported by this endpoint
+    /// - Returns: current market board data
+    func getCurrentData(worldDcRegion: String, itemId: Int, queries: [CurrentQuery]? = nil) async -> UniversalisResponse<CurrentlyShownView>{
+        let queryItems = queries?.map { $0.queryItem }
+        let url = Endpoint.currentData(worldDcRegion: worldDcRegion, itemId: itemId, queryItems: queryItems).url!
+        let response: UniversalisResponse<CurrentlyShownView> = await loadData(url)
+        
+        return response
+    }
+    
+    
     /// get the data currently shown on the market board for the requested items
     /// - Parameters:
     ///   - worldDcRegion: the world, data center or region to retrieve data for
@@ -85,6 +97,21 @@ public extension UniversalisClient{
     /// - Returns: current market board data
     func getCurrentData(worldDcRegion: String, itemIds: [Int], queryItems: [URLQueryItem]? = nil) async -> UniversalisResponse<CurrentlyShownMultiViewV2>{
         
+        let url = Endpoint.currentData(worldDcRegion: worldDcRegion, itemIds: itemIds, queryItems: queryItems).url!
+        let response: UniversalisResponse<CurrentlyShownMultiViewV2> = await loadData(url)
+        
+        return response
+    }
+    
+    /// get the data currently shown on the market board for the requested items
+    /// - Parameters:
+    ///   - worldDcRegion: the world, data center or region to retrieve data for
+    ///   - itemIds: the items to retrieve data for
+    ///   - queries: queries supported by this endpoint
+    /// - Returns: current market board data
+    func getCurrentData(worldDcRegion: String, itemIds: [Int], queries: [CurrentQuery]? = nil) async -> UniversalisResponse<CurrentlyShownMultiViewV2>{
+        
+        let queryItems = queries?.map { $0.queryItem }
         let url = Endpoint.currentData(worldDcRegion: worldDcRegion, itemIds: itemIds, queryItems: queryItems).url!
         let response: UniversalisResponse<CurrentlyShownMultiViewV2> = await loadData(url)
         
@@ -118,6 +145,21 @@ public extension UniversalisClient{
         return response
     }
     
+    /// get the history data for the requested item
+    /// - Parameters:
+    ///   - worldDcRegion: the world, data center or region to retrieve data for
+    ///   - itemId: the item to retrieve data for
+    ///   - queries: queries supported by this endpoint
+    /// - Returns: market history data
+    func getHistory(worldDcRegion: String, itemId: Int, queries: [HistoryQuery]? = nil) async -> UniversalisResponse<HistoryView>{
+        
+        let queryItems = queries?.map { $0.queryItem }
+        let url = Endpoint.history(worldDcRegion: worldDcRegion, itemId: itemId, queryItems: queryItems).url!
+        let response: UniversalisResponse<HistoryView> = await loadData(url)
+        
+        return response
+    }
+    
     /// get the history data for the requested items
     /// - Parameters:
     ///   - worldDcRegion: the world, data center or region to retrieve data for
@@ -131,6 +173,21 @@ public extension UniversalisClient{
     /// - Returns: market history data
     func getHistory(worldDcRegion: String, itemIds: [Int], queryItems: [URLQueryItem]? = nil) async -> UniversalisResponse<HistoryMultiViewV2>{
         
+        let url = Endpoint.history(worldDcRegion: worldDcRegion, itemIds: itemIds, queryItems: queryItems).url!
+        let response: UniversalisResponse<HistoryMultiViewV2> = await loadData(url)
+        
+        return response
+    }
+    
+    /// get the history data for the requested items
+    /// - Parameters:
+    ///   - worldDcRegion: the world, data center or region to retrieve data for
+    ///   - itemIds: the items to retrieve data for
+    ///   - queries: queries supported by this endpoint
+    /// - Returns: market history data
+    func getHistory(worldDcRegion: String, itemIds: [Int], queries: [HistoryQuery]? = nil) async -> UniversalisResponse<HistoryMultiViewV2>{
+        
+        let queryItems = queries?.map { $0.queryItem }
         let url = Endpoint.history(worldDcRegion: worldDcRegion, itemIds: itemIds, queryItems: queryItems).url!
         let response: UniversalisResponse<HistoryMultiViewV2> = await loadData(url)
         
