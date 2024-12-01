@@ -24,7 +24,7 @@ public struct AverageSalePrice: Codable {
     public let region: AverageSalePriceEntry?
     
     public struct AverageSalePriceEntry: Codable {
-        let price: Int
+        public let price: Double
     }
 }
 
