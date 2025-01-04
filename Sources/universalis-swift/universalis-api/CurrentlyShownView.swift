@@ -32,7 +32,7 @@ public struct CurrentlyShownView: Codable, Identifiable {
     public let recentHistoryCount: Int
     public let unitsForSale: Int
     public let unitsSold: Int
-    
+    public let hasData: Bool
 }
 
 public extension CurrentlyShownView{
