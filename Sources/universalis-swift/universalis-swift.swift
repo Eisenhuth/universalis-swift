@@ -263,4 +263,13 @@ public extension UniversalisClient{
         return response
     }
     
+    /// get the current congested status for worlds on the lodestone
+    /// - Returns: [WorldName : LodestoneWorldStatus]
+    func getLodestoneWorldStatus() async -> UniversalisResponse<[String : LodestoneWorldStatus]>{
+        
+        let url = Endpoint.lodestoneWorldStatus().url!
+        let response: UniversalisResponse<[String : LodestoneWorldStatus]> = await loadData(url)
+        
+        return response
+    }
 }

@@ -73,6 +73,10 @@ public extension Endpoint {
         return Endpoint(path: "/api/v2/extra/stats/upload-history")
     }
     
+    static func lodestoneWorldStatus() -> Endpoint {
+        return Endpoint(path: "/api/web/lodestone-worlds")
+    }
+    
 }
 
 public extension Endpoint {
